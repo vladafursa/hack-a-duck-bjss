@@ -19,13 +19,11 @@ from django.shortcuts import render, redirect
 def index(request):
     return render(request, 'employees/employees.html')
 
-
+@api_view(['GET'])
 def employees_list_view(request):
     employees = Employees.objects.all().order_by('-experience')  # Retrieve and order employees
-    context = {
-        'Employees': employees,  # Pass the employee queryset to the template
-    }
-    return render(request, 'employees/employees.html', context)
+    serializer = EmployeesSerializer(employees, many=True)  # Serialize the data
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @swagger_auto_schema(

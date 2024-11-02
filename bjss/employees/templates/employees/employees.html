@@ -1,18 +1,13 @@
-{%load static%}
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-     <link rel="stylesheet" href="{%static 'employees/employees.css'%}">
-</head>
-<body>
-<h1>Employees</h1>
-<form method="GET" action="{% url 'filtered-employees-list' %}">
-<style>
+    <title>Employees</title>
+    <link rel="stylesheet" href="{% static 'employees/employees.css' %}">
+    <style>
         .multi-select-container {
             position: relative;
             width: 200px;
@@ -53,105 +48,101 @@
     </style>
 </head>
 <body>
-
-<div class="multi-select-container">
-    <div class="selected-items" onclick="toggleDropdown()">Select Skills</div>
-    <div class="options">
-        <div class="option-item" onclick="selectOption(this)">C++</div>
-        <div class="option-item" onclick="selectOption(this)">Java</div>
-        <div class="option-item" onclick="selectOption(this)">JavaScript</div>
-        <div class="option-item" onclick="selectOption(this)">Python</div>
-        <div class="option-item" onclick="selectOption(this)">Cloud Computing</div>
-        <div class="option-item" onclick="selectOption(this)">Project Management</div>
-        <div class="option-item" onclick="selectOption(this)">UI</div>
-        <div class="option-item" onclick="selectOption(this)">Machine Learning</div>
-        <div class="option-item" onclick="selectOption(this)">Data Analysis</div>
-        <div class="option-item" onclick="selectOption(this)">SQL</div>
-        <div class="option-item" onclick="selectOption(this)">C#</div>
-        <div class="option-item" onclick="selectOption(this)">Web Development</div>
-    </div>
-</div>
-
-<div class="experience-container">
-    <label for="experience">Experience (years):</label>
-    <input type="number" id="experience" class="experience-input" name="experience" min="0" placeholder="Enter years">
-</div>
-
-
-            <!-- Availability Date Picker -->
-            <div class="filter-item">
-                <label for="availability">Available Since:</label>
-                <input type="date" id="availability" name="availability">
-            </div>
-
-            <!-- Location Input -->
-            <div class="filter-item">
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" placeholder="Enter location">
-            </div>
-
-            <!-- Temperament Selection -->
-            <div class="filter-item">
-                <label for="temperament">Temperament:</label><br>
-                <input type="radio" id="calm" name="temperament" value="calm">
-                <label for="calm">melancholic</label><br>
-                <input type="radio" id="aggressive" name="temperament" value="aggressive">
-                <label for="aggressive">choleric</label><br>
-                <input type="radio" id="patient" name="temperament" value="patient">
-                <label for="patient">sanguine</label><br>
-                <input type="radio" id="impatient" name="temperament" value="impatient">
-                <label for="impatient">phlegmatic</label><br>
-            </div>
-
-            <!-- Security Clearance Checkbox -->
-            <div class="filter-item">
-                <label for="security_clearance">Security Clearance:</label>
-                <input type="checkbox" id="security_clearance" name="security_clearance" value="true">
-            </div>
-
-            <!-- Type of Work Checkbox -->
-            <div class="filter-item">
-                <label for="type_of_work">Type of Work:</label>
-                <input type="checkbox" id="type_of_work" name="type_of_work" value="true">
-            </div>
-
-            <div class="filter-item">
-                <input type="submit" value="Filter">
-            </div>
+<h1>Employees</h1>
+<form method="GET" action="{% url 'filtered-employees-list' %}">
+    <div class="multi-select-container">
+        <div class="selected-items" onclick="toggleDropdown()">Select Skills</div>
+        <div class="options">
+            <div class="option-item" onclick="selectOption(this)">C++</div>
+            <div class="option-item" onclick="selectOption(this)">Java</div>
+            <div class="option-item" onclick="selectOption(this)">JavaScript</div>
+            <div class="option-item" onclick="selectOption(this)">Python</div>
+            <div class="option-item" onclick="selectOption(this)">Cloud Computing</div>
+            <div class="option-item" onclick="selectOption(this)">Project Management</div>
+            <div class="option-item" onclick="selectOption(this)">UI</div>
+            <div class="option-item" onclick="selectOption(this)">Machine Learning</div>
+            <div class="option-item" onclick="selectOption(this)">Data Analysis</div>
+            <div class="option-item" onclick="selectOption(this)">SQL</div>
+            <div class="option-item" onclick="selectOption(this)">C#</div>
+            <div class="option-item" onclick="selectOption(this)">Web Development</div>
         </div>
-    </form>
+    </div>
+
+    <div class="experience-container">
+        <label for="experience">Experience (years):</label>
+        <input type="number" id="experience" name="experience" min="0" placeholder="Enter years" required>
+    </div>
+
+    <div class="filter-item">
+        <label for="availability">Available Since:</label>
+        <input type="date" id="availability" name="availability" required>
+    </div>
+
+    <div class="filter-item">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter location" required>
+    </div>
+
+    <div class="filter-item">
+        <label for="temperament">Temperament:</label><br>
+        <input type="radio" id="calm" name="temperament" value="calm" required>
+        <label for="calm">Melancholic</label><br>
+        <input type="radio" id="aggressive" name="temperament" value="aggressive" required>
+        <label for="aggressive">Choleric</label><br>
+        <input type="radio" id="patient" name="temperament" value="patient" required>
+        <label for="patient">Sanguine</label><br>
+        <input type="radio" id="impatient" name="temperament" value="impatient" required>
+        <label for="impatient">Phlegmatic</label><br>
+    </div>
+
+    <div class="filter-item">
+        <label for="security_clearance">Security Clearance:</label>
+        <input type="checkbox" id="security_clearance" name="security_clearance" value="true">
+    </div>
+
+    <div class="filter-item">
+        <label for="type_of_work">Type of Work:</label>
+        <input type="checkbox" id="type_of_work" name="type_of_work" value="true">
+    </div>
+
+    <div class="filter-item">
+        <input type="submit" value="Filter">
+    </div>
+</form>
+
 <table id="participantsTable">
-  <thead>
+    <thead>
     <tr>
-      <th>name</th>
-      <th>email</th>
-      <th>skills</th>
-      <th>experience</th>
-      <th>location</th>
-      <th>type of work</th>
-      <th>availability</th>
-      <th>security clearance</th>
-      <th> temperament</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Skills</th>
+        <th>Experience</th>
+        <th>Location</th>
+        <th>Type of Work</th>
+        <th>Availability</th>
+        <th>Security Clearance</th>
+        <th>Temperament</th>
+        <th>Actions</th>
     </tr>
-  </thead>
-  <tbody id="participantsTableBody">
+    </thead>
+    <tbody id="participantsTableBody">
     {% for employee in Employees %}
     <tr>
-      <td>{{ employee.name }}</td>
-      <td>{{ employee.email }}</td>
-      <td>{{ employee.skills }}</td>
-      <td>{{ employee.experience }}</td>
-      <td>{{ employee.location }}</td>
-      <td>{{ employee.type_of_work }}</td>
-      <td>{{ employee.availability }}</td>
-      <td>{{ employee.security_clearance}}</td>
-      <td>{{ employee.temperament }}</td>
-      <td><button class="delete-btn" data-participant-name="{{ employee.name }}">Delete</button></td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.skills }}</td>
+        <td>{{ employee.experience }}</td>
+        <td>{{ employee.location }}</td>
+        <td>{{ employee.type_of_work }}</td>
+        <td>{{ employee.availability }}</td>
+        <td>{{ employee.security_clearance }}</td>
+        <td>{{ employee.temperament }}</td>
+        <td><button class="delete-btn" data-participant-name="{{ employee.name }}">Delete</button></td>
     </tr>
     {% endfor %}
-  </tbody>
+    </tbody>
 </table>
-</div>
+
 <script>
     function toggleDropdown() {
         const options = document.querySelector('.options');
