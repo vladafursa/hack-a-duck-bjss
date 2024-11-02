@@ -1,0 +1,179 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+     <link rel="stylesheet" href="{%static 'employees/employees.css'%}">
+</head>
+<body>
+<h1>Employees</h1>
+<form method="GET" action="{% url 'filtered-employees-list' %}">
+<style>
+        .multi-select-container {
+            position: relative;
+            width: 200px;
+        }
+
+        .selected-items {
+            border: 1px solid #ccc;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            background: white;
+            z-index: 1000;
+        }
+
+        .option-item {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .option-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option-item.selected {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="multi-select-container">
+    <div class="selected-items" onclick="toggleDropdown()">Select Skills</div>
+    <div class="options">
+        <div class="option-item" onclick="selectOption(this)">C++</div>
+        <div class="option-item" onclick="selectOption(this)">Java</div>
+        <div class="option-item" onclick="selectOption(this)">JavaScript</div>
+        <div class="option-item" onclick="selectOption(this)">Python</div>
+        <div class="option-item" onclick="selectOption(this)">Cloud Computing</div>
+        <div class="option-item" onclick="selectOption(this)">Project Management</div>
+        <div class="option-item" onclick="selectOption(this)">UI</div>
+        <div class="option-item" onclick="selectOption(this)">Machine Learning</div>
+        <div class="option-item" onclick="selectOption(this)">Data Analysis</div>
+        <div class="option-item" onclick="selectOption(this)">SQL</div>
+        <div class="option-item" onclick="selectOption(this)">C#</div>
+        <div class="option-item" onclick="selectOption(this)">Web Development</div>
+    </div>
+</div>
+
+<div class="experience-container">
+    <label for="experience">Experience (years):</label>
+    <input type="number" id="experience" class="experience-input" name="experience" min="0" placeholder="Enter years">
+</div>
+
+
+            <!-- Availability Date Picker -->
+            <div class="filter-item">
+                <label for="availability">Available Since:</label>
+                <input type="date" id="availability" name="availability">
+            </div>
+
+            <!-- Location Input -->
+            <div class="filter-item">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter location">
+            </div>
+
+            <!-- Temperament Selection -->
+            <div class="filter-item">
+                <label for="temperament">Temperament:</label><br>
+                <input type="radio" id="calm" name="temperament" value="calm">
+                <label for="calm">melancholic</label><br>
+                <input type="radio" id="aggressive" name="temperament" value="aggressive">
+                <label for="aggressive">choleric</label><br>
+                <input type="radio" id="patient" name="temperament" value="patient">
+                <label for="patient">sanguine</label><br>
+                <input type="radio" id="impatient" name="temperament" value="impatient">
+                <label for="impatient">phlegmatic</label><br>
+            </div>
+
+            <!-- Security Clearance Checkbox -->
+            <div class="filter-item">
+                <label for="security_clearance">Security Clearance:</label>
+                <input type="checkbox" id="security_clearance" name="security_clearance" value="true">
+            </div>
+
+            <!-- Type of Work Checkbox -->
+            <div class="filter-item">
+                <label for="type_of_work">Type of Work:</label>
+                <input type="checkbox" id="type_of_work" name="type_of_work" value="true">
+            </div>
+
+            <div class="filter-item">
+                <input type="submit" value="Filter">
+            </div>
+        </div>
+    </form>
+<table id="participantsTable">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>email</th>
+      <th>skills</th>
+      <th>experience</th>
+      <th>location</th>
+      <th>type of work</th>
+      <th>availability</th>
+      <th>security clearance</th>
+      <th> temperament</th>
+    </tr>
+  </thead>
+  <tbody id="participantsTableBody">
+    {% for employee in Employees %}
+    <tr>
+      <td>{{ employee.name }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.skills }}</td>
+      <td>{{ employee.experience }}</td>
+      <td>{{ employee.location }}</td>
+      <td>{{ employee.type_of_work }}</td>
+      <td>{{ employee.availability }}</td>
+      <td>{{ employee.security_clearance}}</td>
+      <td>{{ employee.temperament }}</td>
+      <td><button class="delete-btn" data-participant-name="{{ employee.name }}">Delete</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<script>
+    function toggleDropdown() {
+        const options = document.querySelector('.options');
+        options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function selectOption(optionElement) {
+        optionElement.classList.toggle('selected');
+
+        const selectedItems = Array.from(document.querySelectorAll('.option-item.selected'))
+            .map(item => item.textContent)
+            .join(', ');
+
+        document.querySelector('.selected-items').textContent = selectedItems || 'Select Skills';
+    }
+
+    document.addEventListener('click', function(event) {
+        const container = document.querySelector('.multi-select-container');
+        if (!container.contains(event.target)) {
+            document.querySelector('.options').style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
